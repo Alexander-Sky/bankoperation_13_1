@@ -1,0 +1,7 @@
+[flake8]
+max-line-length = 119
+ignore = W391  # игнорируем пустую строку в конце
+exclude = .venv, __pycache__, .git[flake8]
+max-line-length = 119
+ignore = W391  # игнорируем пустую строку в конце
+exclude = .venv, __pycache__, .git

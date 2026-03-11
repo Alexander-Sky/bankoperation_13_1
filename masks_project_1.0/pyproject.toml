@@ -1,0 +1,57 @@
+[project]
+name = "masks-project-1-1"
+version = "0.1.0"
+description = "Проект обрабатывает банковские данные карт"
+authors = [
+    {name = "Alexander Schischkin",email = "schischkin2@yandex.com"}
+]
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+]
+
+[tool.poetry]
+packages = [{include = "masks_project_1"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+lint = [
+    "flake8 (>=7.3.0,<8.0.0)",
+    "black (>=26.1.0,<27.0.0)",
+    "isort (>=7.0.0,<8.0.0)",
+    "mypy (>=1.19.1,<2.0.0)"
+]
+
+[tool.black]
+line-length = 119
+exclude = '''
+(
+ /(
+   \.eggs         # исключает несколько распространенных каталогов
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | dist
+ )/
+)
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 119
+multi_line_output = 3  # для совместимости с black
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+known_first_party = ["src"]
+
+[tool.mypy]
+disallow-untyped-defs = true
+warn-return-any = true
+exclude = 'venv'
