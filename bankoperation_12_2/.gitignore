@@ -216,3 +216,24 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+
+# Игнорируем соседние проекты
+../9.2_test_1/
+../bankoperation_11_1/
+../bankoperation_11_1_reverse/
+../bankoperation_11_2/
+../bankoperation_11_2_reserve/
+../masks_project_10.2/
+../project11/
+../project11.1/
+../project11.1\ - Kopie/
+../project11.2/
+../12_1_praxis_*/
+../PythonProject*/
+../Test_19.02.2026/
+../logirowanie_12_2/
+../praxis_11_2/
+../projekt_json_praxis/
+../test_9_2*/
+../time/
+../weather/
