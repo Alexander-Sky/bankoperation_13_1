@@ -3,7 +3,7 @@
 """
 
 import csv
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 import pandas as pd
 
@@ -23,7 +23,7 @@ def _clean_transactions(transactions: List[Dict[Any, Any]]) -> List[Dict[str, An
         cleaned_trans: Dict[str, Any] = {}
         for key, value in trans.items():
             # Преобразуем ключ в строку
-            str_key = str(key) if key is not None else ''
+            str_key = str(key) if key is not None else ""
             # Заменяем NaN и NaT на None
             if pd.isna(value):
                 cleaned_trans[str_key] = None
@@ -38,13 +38,13 @@ def read_csv_file(file_path: str) -> List[Dict[str, Any]]:
     Читает CSV-файл и возвращает список словарей с транзакциями.
     """
     try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            reader = csv.DictReader(file, delimiter=';')
+        with open(file_path, "r", encoding="utf-8") as file:
+            reader = csv.DictReader(file, delimiter=";")
             transactions = list(reader)
 
             for transaction in transactions:
                 for key, value in transaction.items():
-                    if value == '':
+                    if value == "":
                         transaction[key] = None
 
             return transactions
@@ -64,7 +64,7 @@ def read_excel_file(file_path: str) -> List[Dict[str, Any]]:
         df = pd.read_excel(file_path)
 
         # Преобразуем DataFrame в список словарей
-        records = df.to_dict('records')
+        records = df.to_dict("records")
 
         # Очищаем транзакции
         return _clean_transactions(records)
@@ -82,10 +82,10 @@ def read_csv_with_pandas(file_path: str) -> List[Dict[str, Any]]:
     Читает CSV-файл с помощью pandas (альтернативный метод).
     """
     try:
-        df = pd.read_csv(file_path, sep=';')
+        df = pd.read_csv(file_path, sep=";")
 
         # Преобразуем DataFrame в список словарей
-        records = df.to_dict('records')
+        records = df.to_dict("records")
 
         # Очищаем транзакции
         return _clean_transactions(records)

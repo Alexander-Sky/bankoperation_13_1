@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "bankoperation-12-2"
+name = "bankoperation-13-1"
 version = "0.1.0"
 description = ""
 authors = ["Alexander Schischkin <schischkin2@yandex.com>"]
@@ -11,6 +11,8 @@ python = "^3.14"
 requests = "^2.32.5"
 python-dotenv = "^1.2.2"
 types-requests = "^2.32.4.20260107"
+pandas = "^3.0.1"
+openpyxl = "^3.1.5"
 
 [tool.poetry.group.lint.dependencies]
 flake8 = "^7.3.0"
@@ -22,6 +24,7 @@ pytest = "^9.0.2"
 [tool.poetry.group.dev.dependencies]
 pytest-cov = "^7.0.0"
 pytest = "^9.0.2"
+pandas-stubs = "^3.0.0.260204"
 
 [build-system]
 requires = ["poetry-core"]
