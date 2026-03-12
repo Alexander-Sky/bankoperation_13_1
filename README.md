@@ -15,8 +15,8 @@
 bash
 
 # Клонирование репозитория
-git clone https://github.com/Alexander-Sky/bankoperation_12_1.git
-cd bankoperation_12_1
+git clone https://github.com/Alexander-Sky/bankoperation_13_1.git
+cd bankoperation_13_1
 
 ## Установка зависимостей через Poetry
 
