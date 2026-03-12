@@ -7,37 +7,31 @@ import logging
 import os
 from typing import Any, Dict, List
 
-# Настройка логера для utils
+# 1. СОЗДАЕМ ОТДЕЛЬНЫЙ ОБЪЕКТ ЛОГЕРА
 utils_logger = logging.getLogger("utils")
-utils_logger.setLevel(logging.DEBUG)
+utils_logger.setLevel(logging.DEBUG)  # Уровень не ниже DEBUG
 
-# Создаем папку logs, если её нет
+# 2. СОЗДАЕМ ПАПКУ ДЛЯ ЛОГОВ
 log_dir = "logs"
 os.makedirs(log_dir, exist_ok=True)
 
-# Настройка file_handler
+# 3. НАСТРАИВАЕМ FILE_HANDLER
 file_handler = logging.FileHandler(
     filename=os.path.join(log_dir, "utils.log"), mode="w", encoding="utf-8"  # перезаписываем при каждом запуске
 )
 file_handler.setLevel(logging.DEBUG)
 
-# Настройка formatter
+# 4. НАСТРАИВАЕМ FILE_FORMATTER
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
 file_handler.setFormatter(formatter)
 
-# Добавляем handler к логеру
+# 5. ДОБАВЛЯЕМ HANDLER К ЛОГЕРУ
 utils_logger.addHandler(file_handler)
 
 
 def load_operations(file_path: str) -> List[Dict[str, Any]]:
     """
     Загружает операции из JSON-файла.
-
-    Args:
-        file_path: Путь к файлу с операциями
-
-    Returns:
-        List[Dict[str, Any]]: Список операций или пустой список в случае ошибки
     """
     utils_logger.debug(f"Попытка загрузки файла: {file_path}")
 
@@ -66,13 +60,6 @@ def load_operations(file_path: str) -> List[Dict[str, Any]]:
 def filter_operations_by_status(operations: List[Dict[str, Any]], status: str = "EXECUTED") -> List[Dict[str, Any]]:
     """
     Фильтрует операции по статусу.
-
-    Args:
-        operations: Список операций
-        status: Статус для фильтрации (по умолчанию "EXECUTED")
-
-    Returns:
-        List[Dict[str, Any]]: Отфильтрованный список операций
     """
     utils_logger.debug(f"Фильтрация операций по статусу: {status}")
 
@@ -80,7 +67,6 @@ def filter_operations_by_status(operations: List[Dict[str, Any]], status: str = 
         filtered = [op for op in operations if op.get("state") == status]
         utils_logger.info(f"Отфильтровано {len(filtered)} операций со статусом {status}")
         return filtered
-
     except Exception as e:
         utils_logger.exception(f"Ошибка при фильтрации операций: {e}")
         return []
@@ -89,12 +75,6 @@ def filter_operations_by_status(operations: List[Dict[str, Any]], status: str = 
 def get_transaction_amount(transaction: Dict[str, Any]) -> float:
     """
     Получает сумму транзакции.
-
-    Args:
-        transaction: Транзакция
-
-    Returns:
-        float: Сумма транзакции
     """
     utils_logger.debug("Извлечение суммы из транзакции")
 

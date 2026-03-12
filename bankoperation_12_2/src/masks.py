@@ -7,26 +7,21 @@ import os
 from typing import Union
 
 # 1. СОЗДАЕМ ОТДЕЛЬНЫЙ ОБЪЕКТ ЛОГЕРА
-masks_logger = logging.getLogger('masks')
+masks_logger = logging.getLogger("masks")
 masks_logger.setLevel(logging.DEBUG)  # Уровень не ниже DEBUG
 
 # 2. СОЗДАЕМ ПАПКУ ДЛЯ ЛОГОВ
-log_dir = 'logs'
+log_dir = "logs"
 os.makedirs(log_dir, exist_ok=True)
 
 # 3. НАСТРАИВАЕМ FILE_HANDLER
 file_handler = logging.FileHandler(
-    filename=os.path.join(log_dir, 'masks.log'),
-    mode='w',  # перезаписываем при каждом запуске
-    encoding='utf-8'
+    filename=os.path.join(log_dir, "masks.log"), mode="w", encoding="utf-8"  # перезаписываем при каждом запуске
 )
 file_handler.setLevel(logging.DEBUG)
 
 # 4. НАСТРАИВАЕМ FILE_FORMATTER
-formatter = logging.Formatter(
-    '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
 file_handler.setFormatter(formatter)
 
 # 5. ДОБАВЛЯЕМ HANDLER К ЛОГЕРУ
@@ -77,4 +72,4 @@ def get_mask_account(account_number: Union[int, str]) -> str:
         raise
 
 
-__all__ = ['get_mask_card_number', 'get_mask_account']
+__all__ = ["get_mask_card_number", "get_mask_account"]
