@@ -3,9 +3,34 @@
 """
 
 import csv
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
 import pandas as pd
+
+
+def _clean_transactions(transactions: List[Dict[Any, Any]]) -> List[Dict[str, Any]]:
+    """
+    Преобразует транзакции из формата pandas в нужный формат.
+
+    Args:
+        transactions: Список словарей от pandas
+
+    Returns:
+        List[Dict[str, Any]]: Очищенный список транзакций
+    """
+    cleaned = []
+    for trans in transactions:
+        cleaned_trans = {}
+        for key, value in trans.items():
+            # Преобразуем ключ в строку
+            str_key = str(key) if key is not None else ''
+            # Заменяем NaN и NaT на None
+            if pd.isna(value):
+                cleaned_trans[str_key] = None
+            else:
+                cleaned_trans[str_key] = value
+        cleaned.append(cleaned_trans)
+    return cleaned
 
 
 def read_csv_file(file_path: str) -> List[Dict[str, Any]]:
@@ -37,12 +62,13 @@ def read_excel_file(file_path: str) -> List[Dict[str, Any]]:
     """
     try:
         df = pd.read_excel(file_path)
-        df = df.where(pd.notnull(df), None)
 
-        transactions = df.to_dict('records')
-        if isinstance(transactions, list):
-            return transactions
-        return []
+        # Преобразуем DataFrame в список словарей
+        records = df.to_dict('records')
+
+        # Очищаем транзакции
+        return _clean_transactions(records)
+
     except FileNotFoundError:
         print(f"Файл {file_path} не найден")
         return []
@@ -57,12 +83,13 @@ def read_csv_with_pandas(file_path: str) -> List[Dict[str, Any]]:
     """
     try:
         df = pd.read_csv(file_path, sep=';')
-        df = df.where(pd.notnull(df), None)
 
-        transactions = df.to_dict('records')
-        if isinstance(transactions, list):
-            return transactions
-        return []
+        # Преобразуем DataFrame в список словарей
+        records = df.to_dict('records')
+
+        # Очищаем транзакции
+        return _clean_transactions(records)
+
     except FileNotFoundError:
         print(f"Файл {file_path} не найден")
         return []
