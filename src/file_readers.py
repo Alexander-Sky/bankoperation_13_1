@@ -3,7 +3,7 @@
 """
 
 import csv
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 
 import pandas as pd
 
@@ -20,7 +20,7 @@ def _clean_transactions(transactions: List[Dict[Any, Any]]) -> List[Dict[str, An
     """
     cleaned = []
     for trans in transactions:
-        cleaned_trans = {}
+        cleaned_trans: Dict[str, Any] = {}
         for key, value in trans.items():
             # Преобразуем ключ в строку
             str_key = str(key) if key is not None else ''
