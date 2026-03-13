@@ -22,9 +22,7 @@ def _clean_transactions(transactions: List[Dict[Any, Any]]) -> List[Dict[str, An
     for trans in transactions:
         cleaned_trans: Dict[str, Any] = {}
         for key, value in trans.items():
-            # Преобразуем ключ в строку
             str_key = str(key) if key is not None else ""
-            # Заменяем NaN и NaT на None
             if pd.isna(value):
                 cleaned_trans[str_key] = None
             else:
@@ -36,6 +34,12 @@ def _clean_transactions(transactions: List[Dict[Any, Any]]) -> List[Dict[str, An
 def read_csv_file(file_path: str) -> List[Dict[str, Any]]:
     """
     Читает CSV-файл и возвращает список словарей с транзакциями.
+
+    Args:
+        file_path: Путь к CSV-файлу
+
+    Returns:
+        List[Dict[str, Any]]: Список транзакций или пустой список в случае ошибки
     """
     try:
         with open(file_path, "r", encoding="utf-8") as file:
@@ -59,14 +63,16 @@ def read_csv_file(file_path: str) -> List[Dict[str, Any]]:
 def read_excel_file(file_path: str) -> List[Dict[str, Any]]:
     """
     Читает Excel-файл и возвращает список словарей с транзакциями.
+
+    Args:
+        file_path: Путь к Excel-файлу
+
+    Returns:
+        List[Dict[str, Any]]: Список транзакций или пустой список в случае ошибки
     """
     try:
         df = pd.read_excel(file_path)
-
-        # Преобразуем DataFrame в список словарей
         records = df.to_dict("records")
-
-        # Очищаем транзакции
         return _clean_transactions(records)
 
     except FileNotFoundError:
@@ -80,14 +86,16 @@ def read_excel_file(file_path: str) -> List[Dict[str, Any]]:
 def read_csv_with_pandas(file_path: str) -> List[Dict[str, Any]]:
     """
     Читает CSV-файл с помощью pandas (альтернативный метод).
+
+    Args:
+        file_path: Путь к CSV-файлу
+
+    Returns:
+        List[Dict[str, Any]]: Список транзакций или пустой список в случае ошибки
     """
     try:
         df = pd.read_csv(file_path, sep=";")
-
-        # Преобразуем DataFrame в список словарей
         records = df.to_dict("records")
-
-        # Очищаем транзакции
         return _clean_transactions(records)
 
     except FileNotFoundError:
