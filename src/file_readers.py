@@ -3,7 +3,7 @@
 """
 
 import csv
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 import pandas as pd
 
@@ -22,7 +22,7 @@ def _clean_transactions(transactions: List[Dict[Any, Any]]) -> List[Dict[str, An
     for trans in transactions:
         cleaned_trans: Dict[str, Any] = {}
         for key, value in trans.items():
-            str_key = str(key) if key is not None else ''
+            str_key = str(key) if key is not None else ""
             if pd.isna(value):
                 cleaned_trans[str_key] = None
             else:
@@ -42,13 +42,13 @@ def read_csv_file(file_path: str) -> List[Dict[str, Any]]:
         List[Dict[str, Any]]: Список транзакций или пустой список в случае ошибки
     """
     try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            reader = csv.DictReader(file, delimiter=';')
+        with open(file_path, "r", encoding="utf-8") as file:
+            reader = csv.DictReader(file, delimiter=";")
             transactions = list(reader)
 
             for transaction in transactions:
                 for key, value in transaction.items():
-                    if value == '':
+                    if value == "":
                         transaction[key] = None
 
             return transactions
@@ -72,7 +72,7 @@ def read_excel_file(file_path: str) -> List[Dict[str, Any]]:
     """
     try:
         df = pd.read_excel(file_path)
-        records = df.to_dict('records')
+        records = df.to_dict("records")
         return _clean_transactions(records)
 
     except FileNotFoundError:
@@ -94,8 +94,8 @@ def read_csv_with_pandas(file_path: str) -> List[Dict[str, Any]]:
         List[Dict[str, Any]]: Список транзакций или пустой список в случае ошибки
     """
     try:
-        df = pd.read_csv(file_path, sep=';')
-        records = df.to_dict('records')
+        df = pd.read_csv(file_path, sep=";")
+        records = df.to_dict("records")
         return _clean_transactions(records)
 
     except FileNotFoundError:
